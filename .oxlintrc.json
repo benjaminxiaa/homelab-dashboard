@@ -1,0 +1,50 @@
+{
+    "$schema": "./node_modules/oxlint/configuration_schema.json",
+    "plugins": [
+        "typescript",
+        "unicorn",
+        "oxc",
+        "eslint",
+        "promise",
+        "jsx-a11y",
+        "react",
+        "import",
+        "react-perf"
+    ],
+    "categories": {
+        "correctness": "error",
+        "suspicious": "error",
+        "pedantic": "warn",
+        "perf": "warn",
+        "style": "warn"
+    },
+    "options": {
+        "typeAware": true,
+        "denyWarnings": true
+    },
+    "rules": {
+        "react/rules-of-hooks": "error",
+        "react/react-in-jsx-scope": "off",
+        "promise/always-return": "error",
+        "typescript/prefer-readonly-parameter-types": "off",
+        "import/no-named-export": "off",
+        "import/prefer-default-export": "off",
+        "require-await": "off",
+        "one-var": "off",
+        "no-magic-numbers": "error",
+        "id-length": "off",
+        "import/no-anonymous-default-export": "error",
+        "sort-imports": "off"
+    },
+    "overrides": [
+        {
+            "files": ["src/client/**"],
+            "rules": {
+                "no-restricted-imports": ["error", { "patterns": ["**/server", "**/server/**"] }]
+            }
+        }
+    ],
+    "env": {
+        "builtin": true
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "extends": "./tsconfig.base.json",
+    "include": ["src/client", "src/shared"],
+    "compilerOptions": {
+        "lib": ["ESNext", "DOM", "DOM.Iterable"],
+        "jsx": "react-jsx",
+        "types": []
+    }
+}
