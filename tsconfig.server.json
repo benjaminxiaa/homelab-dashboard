@@ -1,6 +1,6 @@
 {
     "extends": "./tsconfig.base.json",
-    "include": ["src/server", "src/shared"],
+    "include": ["src/server", "src/shared", "vite.config.ts"],
     "compilerOptions": {
         "lib": ["ESNext"],
         "types": ["bun"]

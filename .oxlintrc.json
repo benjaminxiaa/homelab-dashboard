@@ -1,50 +1,30 @@
 {
     "$schema": "./node_modules/oxlint/configuration_schema.json",
-    "plugins": [
-        "typescript",
-        "unicorn",
-        "oxc",
-        "eslint",
-        "promise",
-        "jsx-a11y",
-        "react",
-        "import",
-        "react-perf"
-    ],
+    "plugins": ["unicorn", "eslint", "react", "typescript", "oxc", "import", "jsx-a11y", "promise"],
     "categories": {
         "correctness": "error",
         "suspicious": "error",
-        "pedantic": "warn",
         "perf": "warn",
-        "style": "warn"
+        "pedantic": "error"
     },
     "options": {
-        "typeAware": true,
-        "denyWarnings": true
+        "maxWarnings": 0
     },
     "rules": {
         "react/rules-of-hooks": "error",
+        "react/exhaustive-deps": "error",
         "react/react-in-jsx-scope": "off",
-        "promise/always-return": "error",
-        "typescript/prefer-readonly-parameter-types": "off",
-        "import/no-named-export": "off",
-        "import/prefer-default-export": "off",
-        "require-await": "off",
-        "one-var": "off",
-        "no-magic-numbers": "error",
-        "id-length": "off",
-        "import/no-anonymous-default-export": "error",
-        "sort-imports": "off"
-    },
-    "overrides": [
-        {
-            "files": ["src/client/**"],
-            "rules": {
-                "no-restricted-imports": ["error", { "patterns": ["**/server", "**/server/**"] }]
-            }
-        }
-    ],
-    "env": {
-        "builtin": true
+        "react/hooks": "off",
+        "react/exhaustive-effect-dependencies": "off",
+        "react/only-export-components": ["warn", { "allowConstantExport": true }],
+        "typescript/no-explicit-any": "error",
+        "eqeqeq": "error",
+        "typescript/no-non-null-assertion": "error",
+        "typescript/consistent-type-imports": "error",
+        "eslint/max-lines-per-function": [
+            "error",
+            { "max": 150, "skipBlankLines": true, "skipComments": true }
+        ],
+        "import/no-unassigned-import": ["error", { "allow": ["**/*.css"] }]
     }
 }
