@@ -3,6 +3,20 @@ export interface HealthCheck {
     time: number;
 }
 
+export type ServiceCheck =
+    | {
+          status: "up";
+          latencyMs: number;
+          checkedAt: number;
+      }
+    | {
+          status: "down";
+          checkedAt: number;
+          error: string;
+      };
+
+export type ServiceStatuses = Record<string, ServiceCheck>;
+
 export interface DashboardConfig {
     groups: DashboardGroup[];
 }
@@ -54,5 +68,26 @@ export function isDashboardConfig(value: unknown): value is DashboardConfig {
         "groups" in value &&
         Array.isArray(value.groups) &&
         value.groups.every(isDashboardGroup)
+    );
+}
+
+export function isServiceCheck(value: unknown): value is ServiceCheck {
+    return (
+        typeof value === "object" &&
+        value !== null &&
+        "status" in value &&
+        "checkedAt" in value &&
+        typeof value.checkedAt === "number" &&
+        (("latencyMs" in value && typeof value.latencyMs === "number" && value.status === "up") ||
+            ("error" in value && value.status === "down" && typeof value.error === "string"))
+    );
+}
+
+export function isServiceStatuses(value: unknown): value is ServiceStatuses {
+    return (
+        typeof value === "object" &&
+        value !== null &&
+        !Array.isArray(value) &&
+        Object.values(value).every((entry) => isServiceCheck(entry))
     );
 }

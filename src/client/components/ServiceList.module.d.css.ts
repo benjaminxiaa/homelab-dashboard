@@ -9,6 +9,14 @@ declare const styles: {
     readonly description: string;
     readonly message: string;
     readonly error: string;
+    readonly header: string;
+    readonly dot: string;
+    readonly up: string;
+    readonly down: string;
+    readonly pending: string;
+    readonly latency: string;
+    readonly downReason: string;
+    readonly srOnly: string;
 };
 
 export default styles;
