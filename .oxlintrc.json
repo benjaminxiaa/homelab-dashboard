@@ -25,6 +25,8 @@
             "error",
             { "max": 150, "skipBlankLines": true, "skipComments": true }
         ],
-        "import/no-unassigned-import": ["error", { "allow": ["**/*.css"] }]
+        "import/no-unassigned-import": ["error", { "allow": ["**/*.css"] }],
+        "no-redeclare": "off",
+        "oxc/no-map-spread": "off"
     }
 }

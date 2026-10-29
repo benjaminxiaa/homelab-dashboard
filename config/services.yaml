@@ -1,0 +1,16 @@
+Group:
+    Service A:
+        description: service a description
+        icon: icon
+        url: https://example.com
+
+    Service B:
+        description: service b description
+        icon: icon
+        url: https://example.com
+
+Group 2:
+    Service C:
+        description: service c description
+        icon: icon
+        url: https://example.com
