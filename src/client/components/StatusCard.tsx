@@ -101,7 +101,7 @@ function StatusCard({
                 {side ? <div aria-hidden="true" /> : null}
                 <div className="flex flex-1 flex-col items-center justify-center gap-2 text-center">
                     <output
-                        className={`font-bold tracking-wide ${side ? "text-8xl" : "text-7xl"} ${TEXT_CLASSES[state]}`}
+                        className={`font-bold tracking-wide ${side ? "text-[clamp(2.5rem,8vh,6rem)]" : "text-[clamp(2rem,6vh,4.5rem)]"} ${TEXT_CLASSES[state]}`}
                     >
                         {LABELS[state]}
                     </output>

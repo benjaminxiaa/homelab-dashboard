@@ -52,7 +52,7 @@ function ServiceList({ config: state, statuses }: ServiceListProps) {
     }
 
     return (
-        <div className="flex flex-col gap-8">
+        <div className="-m-1 flex min-h-0 flex-1 flex-col gap-6 overflow-hidden p-1">
             {groups.map((group) => (
                 <section key={group.name}>
                     <h2 className="mb-3 text-xs tracking-wider text-muted-foreground uppercase">
@@ -61,7 +61,7 @@ function ServiceList({ config: state, statuses }: ServiceListProps) {
                     {group.services.length === 0 ? (
                         <p className="text-sm text-muted-foreground">No services in this group.</p>
                     ) : (
-                        <ul className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-3 items-start">
+                        <ul className="grid grid-cols-2 items-start gap-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
                             {group.services.map((service) => {
                                 const check = statuses[service.id];
                                 const dotState = check?.status ?? "pending";
@@ -77,20 +77,17 @@ function ServiceList({ config: state, statuses }: ServiceListProps) {
                                             rel="noreferrer"
                                             title={statusTitle(check)}
                                         >
-                                            <Card
-                                                size="sm"
-                                                className="transition-shadow group-hover:ring-foreground/25 motion-reduce:transition-none"
-                                            >
+                                            <Card className="transition-shadow group-hover:ring-foreground/25 motion-reduce:transition-none">
                                                 <CardHeader className="flex items-center gap-2">
                                                     <span
-                                                        className={`size-2 shrink-0 rounded-full ${DOT_CLASSES[dotState]}`}
+                                                        className={`size-2.5 shrink-0 rounded-full ${DOT_CLASSES[dotState]}`}
                                                         aria-hidden="true"
                                                     />
-                                                    <CardTitle className="min-w-0 flex-1 truncate font-bold">
+                                                    <CardTitle className="min-w-0 flex-1 truncate text-base font-bold">
                                                         {service.name}
                                                     </CardTitle>
                                                     {check?.status === "up" ? (
-                                                        <span className="shrink-0 text-xs text-muted-foreground">
+                                                        <span className="shrink-0 text-sm text-muted-foreground">
                                                             {check.latencyMs} ms
                                                         </span>
                                                     ) : null}
@@ -102,12 +99,12 @@ function ServiceList({ config: state, statuses }: ServiceListProps) {
                                                     <CardContent className="flex flex-col gap-1">
                                                         {service.description ===
                                                         undefined ? null : (
-                                                            <p className="text-xs text-muted-foreground">
+                                                            <p className="text-sm text-muted-foreground">
                                                                 {service.description}
                                                             </p>
                                                         )}
                                                         {check?.status === "down" ? (
-                                                            <p className="text-xs wrap-break-word text-destructive">
+                                                            <p className="text-sm wrap-break-word text-destructive">
                                                                 {check.error}
                                                             </p>
                                                         ) : null}

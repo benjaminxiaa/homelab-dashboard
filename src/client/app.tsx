@@ -7,8 +7,8 @@ function App() {
     const { config, statuses } = useDashboard();
 
     return (
-        <main className="mx-auto flex w-full flex-col gap-8 px-4 py-8 sm:w-[88%] sm:px-0">
-            <div className="flex flex-col gap-3">
+        <main className="mx-auto flex h-dvh w-full flex-col gap-6 overflow-hidden px-4 py-6 sm:w-[88%] sm:px-1">
+            <div className="flex shrink-0 flex-col gap-3">
                 <HealthStatus />
                 {config.status === "loaded" && config.data.machines.length > 0 ? (
                     <section

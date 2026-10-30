@@ -35,8 +35,11 @@ export function useDashboard(): { config: ConfigState; statuses: ServiceStatuses
 
         void fetchConfig();
 
+        const intervalId = setTimeout((() => { void fetchConfig() }), 10_000);
+
         return () => {
             ignore = true;
+            clearInterval(intervalId);
         };
     }, []);
 
