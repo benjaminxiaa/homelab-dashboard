@@ -16,9 +16,11 @@ async function checkService(url: string): Promise<ServiceCheck> {
 export async function checkAllServices(config: DashboardConfig): Promise<ServiceStatuses> {
     const services = config.groups.flatMap((group) => group.services);
 
-    const entries = await Promise.all(
-        services.map(async (service) => [service.id, await checkService(service.url)] as const),
+    const combined = [...config.machines, ...services];
+
+    const targets = await Promise.all(
+        combined.map(async (service) => [service.id, await checkService(service.url)] as const),
     );
 
-    return Object.fromEntries(entries);
+    return Object.fromEntries(targets);
 }

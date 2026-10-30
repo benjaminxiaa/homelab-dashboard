@@ -38,34 +38,47 @@ const slug = (str: string) =>
         .replaceAll(/[^a-z0-9]+/gu, "-")
         .replaceAll(/^-|-$/gu, "");
 
+function assignId(
+    displayName: string,
+    explicitId: string | undefined,
+    seenIds: Set<string>,
+    errorMessage: string,
+): string {
+    const id = explicitId ?? slug(displayName);
+    if (id.length === 0) {
+        throw new Error(`${errorMessage} cannot be turned into an id. Need an explicit "id:"`);
+    }
+
+    if (seenIds.has(id)) {
+        throw new Error(`Duplicate id "${id}" (${errorMessage})`);
+    }
+
+    seenIds.add(id);
+
+    return id;
+}
+
 function convertConfig(config: Config): DashboardConfig {
     const seenIds = new Set<string>();
 
     return {
-        groups: Object.entries(config).map(([groupName, services]) => ({
+        machines: Object.entries(config.machines).map(([machineName, machine]) => ({
+            ...machine,
+            name: machineName,
+            id: assignId(machineName, machine.id, seenIds, `machine "${machineName}"`),
+        })),
+        groups: Object.entries(config.services).map(([groupName, services]) => ({
             name: groupName,
-            services: Object.entries(services).map(([serviceName, service]) => {
-                const id = service.id ?? slug(serviceName);
-                if (id.length === 0) {
-                    throw new Error(
-                        `Service "${serviceName}" in group "${groupName}" cannot be turned into an id. Need an explicit "id:"`,
-                    );
-                }
-
-                if (seenIds.has(id)) {
-                    throw new Error(
-                        `Duplicate service id "${id}" (service "${serviceName}" in group "${groupName}")`,
-                    );
-                }
-
-                seenIds.add(id);
-
-                return {
-                    ...service,
-                    name: serviceName,
-                    id: id,
-                };
-            }),
+            services: Object.entries(services).map(([serviceName, service]) => ({
+                ...service,
+                name: serviceName,
+                id: assignId(
+                    serviceName,
+                    service.id,
+                    seenIds,
+                    `service "${serviceName}" in group "${groupName}"`,
+                ),
+            })),
         })),
     };
 }

@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
@@ -6,7 +7,7 @@ export default defineConfig({
         emptyOutDir: true,
         outDir: "../../dist",
     },
-    plugins: [react()],
+    plugins: [react(), tailwindcss()],
     resolve: {
         tsconfigPaths: true,
     },

@@ -9,7 +9,14 @@ const Service = z
     })
     .strict();
 
+const Machine = Service;
+
 const Group = z.record(z.string(), Service);
 
-export const Config = z.record(z.string(), Group);
+export const Config = z
+    .object({
+        machines: z.record(z.string(), Machine).default({}),
+        services: z.record(z.string(), Group),
+    })
+    .strict();
 export type Config = z.infer<typeof Config>;
